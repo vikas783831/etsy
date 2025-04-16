@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etsy Tutorial Hub</title>
+    <style>
+        :root {
+            --primary: #F56400; /* Etsy orange */
+            --secondary: #222;
+            --light-bg: #FFF5F1;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #777;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 5rem 1rem;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e05b00;
+        }
+
+        /* Search */
+        .search-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        #search {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        /* Tutorials Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .tutorials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem 5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .tutorial-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            height: 200px;
+            background-color: var(--gray);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .card-content p {
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: var(--light-bg);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 800px;
+            margin: 0 auto 5rem;
+            padding: 0 1rem;
+        }
+
+        .accordion-item {
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion-btn {
+            width: 100%;
+            padding: 1.5rem;
+            text-align: left;
+            background-color: var(--white);
+            border: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-btn:after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .accordion-btn.active:after {
+            content: '-';
+        }
+
+        .accordion-content {
+            padding: 0 1.5rem;
+            background-color: var(--white);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-content p {
+            padding: 1.5rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .tutorials-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Etsy Tutorial Hub</div>
+            <div class="nav-links">
+                <a href="#tutorials">Tutorials</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Master Etsy Like a Pro</h1>
+        <p>Comprehensive guides for both buyers and sellers</p>
+        <a href="#tutorials" class="btn">Explore Tutorials</a>
+    </section>
+
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search tutorials...">
+    </div>
+
+    <section id="tutorials">
+        <h2 class="section-title">Etsy Tutorials</h2>
+        <div class="tabs">
+            <button class="tab-btn active" data-category="all">All</button>
+            <button class="tab-btn" data-category="buyer">For Buyers</button>
+            <button class="tab-btn" data-category="seller">For Sellers</button>
+        </div>
+        <div class="tutorials-container">
+            <!-- Buyer Tutorials -->
+            <div class="tutorial-card" data-category="buyer">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Buyer Guide</span>
+                    <h3>How to Find the Best Deals on Etsy</h3>
+                    <p>Learn how to use filters, coupons, and favorites to get the best prices on Etsy.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <div class="tutorial-card" data-category="buyer">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Buyer Guide</span>
+                    <h3>Understanding Etsy Shipping Policies</h3>
+                    <p>Everything you need to know about shipping times, costs, and tracking on Etsy.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Seller Tutorials -->
+            <div class="tutorial-card" data-category="seller">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Seller Guide</span>
+                    <h3>Step-by-Step: Opening Your Etsy Shop</h3>
+                    <p>Complete guide to setting up your first Etsy shop from scratch.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <div class="tutorial-card" data-category="seller">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Seller Guide</span>
+                    <h3>Etsy SEO: Ranking Your Listings</h3>
+                    <p>Proven strategies to optimize your listings for Etsy search.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- More Tutorial Cards -->
+            <div class="tutorial-card" data-category="buyer">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Buyer Guide</span>
+                    <h3>How to Leave a Review on Etsy</h3>
+                    <p>A step-by-step guide to leaving reviews and ratings for your purchases.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <div class="tutorial-card" data-category="seller">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Seller Guide</span>
+                    <h3>Product Photography Tips for Etsy</h3>
+                    <p>How to take professional-looking product photos with minimal equipment.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Continue adding more tutorial cards to reach 15 -->
+            <!-- Tutorial 7 -->
+            <div class="tutorial-card" data-category="seller">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Seller Guide</span>
+                    <h3>Creating Effective Etsy Listings</h3>
+                    <p>Learn how to write compelling titles and descriptions that convert.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Tutorial 8 -->
+            <div class="tutorial-card" data-category="buyer">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Buyer Guide</span>
+                    <h3>Using Etsy's Favorite Feature</h3>
+                    <p>How to save items and shops for later and get notifications about sales.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Tutorial 9 -->
+            <div class="tutorial-card" data-category="seller">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Seller Guide</span>
+                    <h3>Etsy Pricing Strategies</h3>
+                    <p>How to price your products competitively while maintaining profitability.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Tutorial 10 -->
+            <div class="tutorial-card" data-category="buyer">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Buyer Guide</span>
+                    <h3>Etsy Gift Cards and Coupons</h3>
+                    <p>How to purchase, redeem, and find discounts on Etsy.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Tutorial 11 -->
+            <div class="tutorial-card" data-category="seller">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Seller Guide</span>
+                    <h3>Etsy Shipping Profiles Setup</h3>
+                    <p>Complete guide to setting up and managing your shipping options.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Tutorial 12 -->
+            <div class="tutorial-card" data-category="buyer">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Buyer Guide</span>
+                    <h3>Contacting Sellers on Etsy</h3>
+                    <p>How to message sellers with questions about products.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Tutorial 13 -->
+            <div class="tutorial-card" data-category="seller">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Seller Guide</span>
+                    <h3>Etsy Shop Policies Guide</h3>
+                    <p>How to set clear shop policies for returns, exchanges, and custom orders.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Tutorial 14 -->
+            <div class="tutorial-card" data-category="buyer">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Buyer Guide</span>
+                    <h3>Etsy's Return and Refund Process</h3>
+                    <p>What to do if you need to return an item or request a refund.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+
+            <!-- Tutorial 15 -->
+            <div class="tutorial-card" data-category="seller">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <div class="card-content">
+                    <span class="card-tag">Seller Guide</span>
+                    <h3>Using Etsy Ads Effectively</h3>
+                    <p>How to set up and optimize Etsy Ads to increase your sales.</p>
+                    <a href="#" class="btn">Read Guide</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        
+        <div class="accordion-item">
+            <button class="accordion-btn">How do I contact an Etsy seller?</button>
+            <div class="accordion-content">
+                <p>To contact a seller, go to their shop page and click the "Contact Shop Owner" button. You can send them a message with any questions about their products.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">How long does Etsy shipping usually take?</button>
+            <div class="accordion-content">
+                <p>Shipping times vary by seller. Most sellers process orders within 1-3 business days, and delivery times depend on the shipping method chosen. You can find estimated delivery dates on each listing page.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">What payment methods does Etsy accept?</button>
+            <div class="accordion-content">
+                <p>Etsy accepts credit/debit cards, Etsy Gift Cards, Etsy Credits, PayPal, Apple Pay, Google Pay, and some local payment methods depending on your country.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">How do I open an Etsy shop?</button>
+            <div class="accordion-content">
+                <p>To open a shop, go to Etsy.com and click "Sell on Etsy." You'll need to create an account, choose your shop name, add listings, set up payment methods, and configure your shop policies.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">What are Etsy's seller fees?</button>
+            <div class="accordion-content">
+                <p>Etsy charges a $0.20 listing fee per item, a 6.5% transaction fee on the sale price (including shipping), and a 3% + $0.25 payment processing fee. There may be additional fees for optional services like Etsy Ads.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">How do I return an item on Etsy?</button>
+            <div class="accordion-content">
+                <p>First, check the shop's return policy. If returns are accepted, contact the seller to arrange the return. Most sellers will provide return instructions. You may need to pay return shipping unless the item was damaged or not as described.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">What is Etsy's buyer protection policy?</button>
+            <div class="accordion-content">
+                <p>Etsy's Purchase Protection program covers eligible purchases that never arrive or arrive damaged. You must contact the seller first and attempt to resolve the issue. If unresolved after 48 hours, you can open a case with Etsy.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">How do I track my Etsy order?</button>
+            <div class="accordion-content">
+                <p>If the seller provided tracking, you'll find it in your order confirmation email or by going to "Purchases and Reviews" in your Etsy account. Click on the order to view tracking information.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">Can I sell digital products on Etsy?</button>
+            <div class="accordion-content">
+                <p>Yes, Etsy allows the sale of digital products like printables, patterns, and downloads. You'll need to set up automatic downloads through Etsy's digital delivery system.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">How do I change my Etsy shop name?</button>
+            <div class="accordion-content">
+                <p>You can change your shop name once by going to Shop Manager > Settings > Info & Appearance. After one change, you'll need to contact Etsy support for additional changes.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-btn">What should I do if my Etsy account is suspended?</button>
+            <div class="accordion-content">
+                <p>If your account is suspended, check your email for a message from Etsy explaining why. You can appeal the suspension by contacting Etsy support and providing any requested information.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Etsy Tutorial Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile Navigation
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            burger.classList.toggle('toggle');
+        });
+
+        // Tab Filtering
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tutorialCards = document.querySelectorAll('.tutorial-card');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                
+                // Filter tutorials
+                tutorialCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('search');
+        
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            tutorialCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Accordion
+        const accordionBtns = document.querySelectorAll('.accordion-btn');
+        
+        accordionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+                const content = btn.nextElementSibling;
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                } 
+            });
+        });
+    </script>
+</body>
+</html>
